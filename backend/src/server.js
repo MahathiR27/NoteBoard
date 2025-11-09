@@ -1,9 +1,19 @@
 import express from "express";
 import notesRoutes from "./routes/notesRoutes.js";
+import { connectDB } from "./config/db.js";
+import dotenv from "dotenv";
 
+dotenv.config(); // Initializing the .env naile you cant access anything from that file
+
+console.log("========================================");
 const app = express();
+connectDB();
 
 app.use("/test-api/", notesRoutes); // test-api/notes er kono url ashle oi file e pathaye dibe
+
+app.listen(5001, () => {
+  console.log("Server started on: http://localhost:5001/");
+});
 
 // app.get("/test-api/", (req,res)=>{ // default parameters by express
 //   res.send("Test API e ki ashe dekhi with nodemon."); // Sends response directly to the website
@@ -20,7 +30,3 @@ app.use("/test-api/", notesRoutes); // test-api/notes er kono url ashle oi file 
 // app.delete("/test-api/notes/:id",(req,res)=>{  // 200/delete: Delete something, :id is dynamic to ensure what to update
 //   res.status(200).json({message: "Note deleted successfully!"});
 // })
-
-app.listen(5001, ()=>{
-  console.log("Server started on: http://localhost:5001/");
-})
