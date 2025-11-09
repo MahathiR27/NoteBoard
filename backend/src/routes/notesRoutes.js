@@ -1,5 +1,10 @@
 import express from "express";
-import { getAllNotes, deleteNote } from "../controllers/notesController.js"; // Must add all of the function names here
+import {
+  getAllNotes,
+  createNotes,
+  updateNotes,
+  deleteNotes,
+} from "../controllers/notesController.js"; // Must add all of the function names here
 
 const router = express.Router();
 export default router;
@@ -9,16 +14,10 @@ router.get("/", (req, res) => {
   res.send("Test API e ki ashe dekhi with nodemon."); // Sends response directly to the website
 });
 
-router.get("/allnotes", getAllNotes);
+router.get("/notes", getAllNotes);
 
-router.post("/notes", (req, res) => {
-  // 201/post: Create something
-  res.status(201).json({ message: "Note created successfully!" });
-});
+router.post("/notes", createNotes);
 
-router.put("/notes/:id", deleteNote); // Used controller. 200/put: Update something, :id is dynamic to ensure what to update
+router.put("/notes/:id", updateNotes); // Used controller. 200/put: Update something, :id is dynamic to ensure what to update
 
-router.delete("/notes/:id", (req, res) => {
-  // 200/delete: Delete something, :id is dynamic to ensure what to update
-  res.status(200).json({ message: "Note deleted successfully!" });
-});
+router.delete("/notes/:id", deleteNotes);

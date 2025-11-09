@@ -7,12 +7,14 @@ dotenv.config(); // Initializing the .env naile you cant access anything from th
 
 console.log("========================================");
 const app = express();
-connectDB();
 
+app.use(express.json()); //Give access to req.body; Middleware - used for auth check; Ratelimiter - used to control how many time one can send api request.
 app.use("/test-api/", notesRoutes); // test-api/notes er kono url ashle oi file e pathaye dibe
 
-app.listen(5001, () => {
-  console.log("Server started on: http://localhost:5001/");
+connectDB().then(() => {
+  app.listen(5001, () => {
+    console.log("Server started on: http://localhost:5001/");
+  });
 });
 
 // app.get("/test-api/", (req,res)=>{ // default parameters by express
